@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
   CategoryScale,
@@ -17,39 +18,77 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 function App() {
-  // const options = {
-  //   plugins: {
-  //     legend: {
-  //       display: false,
-  //     },
-  //     tooltip: {
-  //       callbacks: {
-  //         label: function (data) {
-  //           return "Custom Label Text:" + data.formattedValue;
-  //         },
-  //       },
-  //     },
-  //     datalabels: {
-  //       formatter: function (value) {
-  //          //custom money icon
-  //         return "₺" + new Intl.NumberFormat("tr-TR").format(value);
-  //       },
-  //       color: "white",
-  //       font: {
-  //         weight: 'bold' as const,
-  //         size:14,
-  //         family: 'poppins'
-  //       },
-  //     },
-  //   },
-  // };
   // The following colors will be used sequentially for the chart bars
   const options = {
-  }
+    plugins: {
+      title: {
+          display: true,
+          text: 'Custom Chart Title',
+          padding: {
+              top: 10,
+              bottom: 30
+          }
+      },
+      legend: {
+        display: true,
+        // labels: {
+        //   color: 'rgb(255, 255, 132)'
+        // }
+      },
+      tooltip: {
+        callbacks: {
+          label: function (data) {
+            return "Custom Label Text:" + data.formattedValue;
+          },
+        },
+      },
+      datalabels: {
+        formatter: function (value) {
+          return "₺" + new Intl.NumberFormat("tr-TR").format(value);
+        },
+        color: "white",
+        font: {
+          weight: 'bold',
+          size: 14,
+          family: 'poppins'
+        },
+      }
+    },
+    scales: {
+      x: {
+          stacked: true,
+          grid: {
+            offset: true,
+          },
+          // title: {
+          //   color: 'red',
+          //   display: true,
+          //   text: 'Day'
+          // }
+      },
+      y: {
+          stacked: true,
+          min: 0,
+          max: 20,
+          title: {
+            color: 'red',
+            display: true,
+            text: 'Bath'
+          },
+          ticks: {
+            stepSize: 5,
+            callback: function(value, index, ticks) {
+              return '$' + value;
+            }
+          }
+      }
+    }
+  };
   const data = {
     labels: ['Mon', 'Tue', 'Wed'],
     datasets: [
