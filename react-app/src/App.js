@@ -87,20 +87,29 @@ function App() {
             }
           }
       }
+    },
+    onClick: (event, elements) => {
+      if (elements.length > 0) {
+        const { datasetIndex, index } = elements[0];
+        const dataset = data.datasets[datasetIndex];
+        const value = dataset.data[index];
+        const label = data.labels[index];
+        console.log(`Label: ${label}, Value: ${value}`);
+      }
     }
   };
   const data = {
     labels: ['Mon', 'Tue', 'Wed'],
     datasets: [
       {
-        label: '369',
-        data: [3,6,9],
+        label: 'ชั่วโมงการทำงาน',
+        data: [3,1,9],
         backgroundColor: 'aqua',
         borderColor: 'black', 
         borderWidth: 1,
       },
       {
-        label: '369',
+        label: 'ชั่วโมงหยุดพัก',
         data: [3,8,7],
         backgroundColor: 'green',
         borderColor: 'black', 
